@@ -4,6 +4,7 @@ variable "resource_group" {
     id       = string
     location = string
   })
+  nullable = false
 }
 
 variable "law" {
@@ -14,6 +15,7 @@ variable "law" {
       shared_key   = string
     }
   )
+  nullable = false
 }
 
 variable "containers" {
@@ -22,6 +24,7 @@ variable "containers" {
     image = string
     name  = string
   }))
+  nullable = false
 }
 
 variable "registries" {
@@ -31,6 +34,8 @@ variable "registries" {
     server       = string
     username     = string
   }))
+  nullable = true
+  default  = null
 }
 
 variable "secrets" {
@@ -40,12 +45,16 @@ variable "secrets" {
     value = string
   }))
   sensitive = true
+  nullable  = true
+  default   = null
 }
 
 variable "ingress" {
   description = "values for the ingress in the container app"
   type = object({
-    target_port = number
-    external    = bool
+    targetPort = number
+    external   = bool
   })
+  nullable = true
+  default  = null
 }

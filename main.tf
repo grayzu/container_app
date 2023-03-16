@@ -21,6 +21,18 @@ resource "azapi_resource" "container_app_environment" {
   ignore_missing_property = true
 }
 
+# locals {
+#   container_app_ingress = var.ingress != null ? jsonencode({ingress = var.ingress}) : null
+#   container_app_config = jsonencode({
+#     ingress = {
+#       targetPort = var.ingress.target_port
+#       external   = var.ingress.external
+#     }
+#     secrets    = var.secrets
+#     registries = var.registries
+#   })
+# }
+
 resource "azapi_resource" "container_app" {
   type      = "Microsoft.App/containerApps@2022-01-01-preview"
   name      = random_pet.ca.id
@@ -31,10 +43,7 @@ resource "azapi_resource" "container_app" {
     properties = {
       managedEnvironmentId = azapi_resource.container_app_environment.id
       configuration = {
-        ingress = {
-          targetPort = var.ingress.target_port
-          external   = var.ingress.external
-        }
+        ingress    = var.ingress
         secrets    = var.secrets
         registries = var.registries
       }
