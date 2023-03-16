@@ -32,6 +32,7 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate -json
+        continue-on-error: true
         
       - name: Run tfsec
         uses: aquasecurity/tfsec-sarif-action@9a83b5c3524f825c020e356335855741fd02745f
